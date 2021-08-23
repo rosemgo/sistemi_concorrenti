@@ -1,0 +1,36 @@
+mpirun -np 2 parallelo 100000000
+mpicc -O0 MergeSortParallelo.c /usr/local/lib/libpapi.a -o parallelo
+mpirun parallelo 131072
+mpicc -O0 MergeSortParallelo.c /usr/local/lib/libpapi.a -o parallelo
+mpirun parallelo 131072
+mpicc -O0 MergeSortParallelo.c /usr/local/lib/libpapi.a -o parallelo
+mpirun parallelo 131072
+papi_avail
+papi_component_avail
+mpicc -O0 MergeSortParallelo.c /usr/local/lib/libpapi.a -o parallelo
+mpirun parallelo 131072
+mpicc -O0 MergeSortParallelo.c /usr/local/lib/libpapi.a -o parallelo
+mpirun parallelo 131072
+mpicc -O0 MergeSortParallelo.c /usr/local/lib/libpapi.a -o parallelo
+mpirun parallelo 131072
+papi_component_avail
+papi_avail
+mpicc -O0 MergeSortParallelo.c /usr/local/lib/libpapi.a -o parallelo
+mpirun parallelo 131072
+mpicc -O0 MergeSortParallelo.c /usr/local/lib/libpapi.a -o parallelo
+mpirun parallelo 131072
+mpicc -O0 MergeSortParallelo.c /usr/local/lib/libpapi.a -o parallelo
+mpirun parallelo 131072
+papi_avail
+mpicc -O0 MergeSortParallelo.c /usr/local/lib/libpapi.a -o parallelo
+mpirun parallelo 131072
+papi_component_avail
+mpicc -O0 MergeSortParallelo.c /usr/local/lib/libpapi.a -o parallelo
+cd
+mpicc -O0 mergesortparallelo.c /usr/local/lib/libpapi.a -o parallelo2
+cd Desktop
+mpicc -O0 mergesortparallelo.c /usr/local/lib/libpapi.a -o parallelo2
+mpirun parallelo2 131072
+mpicc -O0 mergesortparallelo.c /usr/local/lib/libpapi.a -o parallelo2
+mpirun parallelo2 131072
+
