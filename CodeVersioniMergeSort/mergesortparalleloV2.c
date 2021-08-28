@@ -19,16 +19,16 @@ int main(int argc, char** argv) {
 	
 	int c;
 	srand(time(NULL));
-	printf("This is the unsorted array: ");
+	//printf("This is the unsorted array: ");
 	for(c = 0; c < n; c++) {
 		
 		original_array[c] = rand() % n;
 	//	printf("%d ", original_array[c]);
 		
-		}
+	}
 
-	printf("\n");
-	printf("\n");
+	//printf("\n");	
+	//printf("\n");
 	
 	/********** Initialize MPI **********/
 	int world_rank;
@@ -39,9 +39,9 @@ int main(int argc, char** argv) {
 	MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 	
 	
-	 if (PAPI_library_init(PAPI_VER_CURRENT) != PAPI_VER_CURRENT) exit(1);
-    /*Create an EventSet */
-    if (PAPI_create_eventset(&EventSet) != PAPI_OK)  exit(1);
+	if (PAPI_library_init(PAPI_VER_CURRENT) != PAPI_VER_CURRENT) exit(1);
+   	/*Create an EventSet */
+   	if (PAPI_create_eventset(&EventSet) != PAPI_OK)  exit(1);
 	
 		
 	/********** Divide the array in equal-sized chunks **********/
@@ -57,7 +57,7 @@ int main(int argc, char** argv) {
 	MPI_Scatter(original_array, size, MPI_INT, sub_array, size, MPI_INT, 0, MPI_COMM_WORLD);
 	
 	/********** Perform the mergesort on each process **********/
-	int *tmp_array = malloc(size * sizeof(int));
+	int *tmp_array = malloc(size * sizeof(int)); //tmp_array è l'array temporaneo che sarà usato dal merge sort
 	mergeSort(sub_array, tmp_array, 0, (size - 1));
 	
 	/********** Gather the sorted subarrays into one **********/

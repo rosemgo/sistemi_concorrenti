@@ -291,15 +291,23 @@ int EventSet = PAPI_NULL;
     // allocate memory for local array, scatter to fill with values and print
     localArraySize = globalArraySize / numProcs;
     localArray = (int*) malloc (localArraySize * sizeof(int));
+   
+   
+   
+   
+   
     MPI_Scatter(globalArray, localArraySize, MPI_INT, localArray, 
 		localArraySize, MPI_INT, 0, MPI_COMM_WORLD);
     //printList(id, "localArray", localArray, localArraySize);   // Line B 
     
-    //Start timing
+    
+     //Start timing
     startTime = MPI_Wtime();
     
-     startT = PAPI_get_real_usec(); //prelevo il tempo 
+    startT = PAPI_get_real_usec(); //prelevo il tempo 
     // printf("startT: %lld \n" ,  startT);
+    
+    
     
     //Merge sort
     if (id == 0) {
@@ -308,23 +316,24 @@ int EventSet = PAPI_NULL;
 		zeroTotalTime = MPI_Wtime() - zeroStartTime;
 		printf("Process #%d of %d on %s took %f seconds \n", 
 			id, numProcs, myHostName, zeroTotalTime);
-	}
-	else {
+    }
+    else {
 		processStartTime = MPI_Wtime();
 	        mergeSort(height, id, localArray, localArraySize, MPI_COMM_WORLD, NULL);
 		processTotalTime = MPI_Wtime() - processStartTime;
 		printf("Process #%d of %d on %s took %f seconds \n", 
 			id, numProcs, myHostName, processTotalTime);
-	}
-    //End timing
+    }
     
+    //End timing
     localTime = MPI_Wtime() - startTime;
+    printf("MPI WALL: %lf  secs totali\n", (localTime));
     
     stopT = PAPI_get_real_usec(); //fine tempo
-   // printf("%lld stopT \n", (stopT));
     
-    printf("%lld secs totali diff\n", (stopT-startT));
     
+    printf("PAPI: %lld secs totali diff\n", (stopT-startT));
+
     
     
     MPI_Reduce(&localTime, &totalTime, 1, MPI_DOUBLE,
