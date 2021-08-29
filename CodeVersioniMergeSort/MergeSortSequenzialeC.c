@@ -53,15 +53,17 @@ int main(int argc, char *argv[]) {
 	int n=atoi(argv[1]); //numero elementi array
     	//int A = (int *)malloc(n*sizeof(int));
 	int A[n];
+	int i;
+	int intnumberOfElements;
 	
-	for(int i=0; i<n; i++){
+	for(i=0; i<n; i++){
 		A[i] = random()%n;	
 	}
 	
 	
 	
 //	int A[] = {6,2,3,1,9,10,15,13,12,17}; // creating an array of integers. 
-	int i, numberOfElements;
+	
 
 	// finding number of elements in array as size of complete array in bytes divided by size of integer in bytes. 
 	// This won't work if array is passed to the function because array
