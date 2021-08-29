@@ -54,7 +54,7 @@ int main(int argc, char *argv[]) {
     	//int A = (int *)malloc(n*sizeof(int));
 	int A[n];
 	int i;
-	int intnumberOfElements;
+	int numberOfElements;
 	
 	for(i=0; i<n; i++){
 		A[i] = random()%n;	
