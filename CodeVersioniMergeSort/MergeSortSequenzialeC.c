@@ -55,15 +55,30 @@ int main(int argc, char *argv[]) {
 	int A[n];
 	int i;
 	int numberOfElements;
-	
+	int EventSet = PAPI_NULL;
+	long_long countCacheMiss;
+
+	//crea un array randomico con un numero di elementi pari al parametro passato
 	for(i=0; i<n; i++){
-		A[i] = random()%n;	
+		A[i] = random() % n;	
 	}
-	
 	
 	
 //	int A[] = {6,2,3,1,9,10,15,13,12,17}; // creating an array of integers. 
 	
+
+	// printf("papi init\n");
+ 	if (PAPI_library_init(PAPI_VER_CURRENT) != PAPI_VER_CURRENT) exit(1);
+    
+    	/*Create an EventSet */
+    	if (PAPI_create_eventset(&EventSet) != PAPI_OK)  exit(1);
+    
+    	if (PAPI_add_event(EventSet,PAPI_L1_TCM) != PAPI_OK){
+            printf("Errore nell'aggiunta dell'evento cache miss level 1\n");
+            exit(1);
+    	}
+
+
 
 	// finding number of elements in array as size of complete array in bytes divided by size of integer in bytes. 
 	// This won't work if array is passed to the function because array
@@ -71,6 +86,11 @@ int main(int argc, char *argv[]) {
 	// Watch this video to understand this concept - http://www.youtube.com/watch?v=CpjVucvAc3g  
 	numberOfElements = sizeof(A)/sizeof(A[0]); 
 
+	//inizio conteggio cache miss 
+    	if(PAPI_start(EventSet) != PAPI_OK){
+    		printf("Errore nell'avvio del conteggio \n");
+    		exit(1);    
+    	}
 
 	long_long startT = PAPI_get_real_usec(); //prelevo il tempo 
 	printf("startT: %lld   ",  startT);
@@ -81,7 +101,13 @@ int main(int argc, char *argv[]) {
 	long_long stopT=PAPI_get_real_usec(); //fine tempo
 	printf("totalT: %lld ",  stopT-startT);
 
-
+	//stop dei contatori e inserimento dei risultati in countCacheMiss
+	if(PAPI_stop(EventSet, &countCacheMiss) != PAPI_OK){
+	  	printf("Errore in stop e store del contatore \n");
+	   	exit(1);
+	}
+	   
+	printf ("Sono il rank %d, questi sono i miei cache miss=%lld\n", id, countCacheMiss);
 
 	//printing all elements in the array once its sorted.
 //	for(i = 0;i < numberOfElements;i++) 
