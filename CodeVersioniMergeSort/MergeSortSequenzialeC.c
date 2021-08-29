@@ -79,7 +79,6 @@ int main(int argc, char *argv[]) {
     	}
 
 
-
 	// finding number of elements in array as size of complete array in bytes divided by size of integer in bytes. 
 	// This won't work if array is passed to the function because array
 	// is always passed by reference through a pointer. So sizeOf function will give size of pointer and not the array.
@@ -107,7 +106,7 @@ int main(int argc, char *argv[]) {
 	   	exit(1);
 	}
 	   
-	printf ("Sono il rank %d, questi sono i miei cache miss=%lld\n", id, countCacheMiss);
+	printf ("Cache miss=%lld\n", countCacheMiss);
 
 	//printing all elements in the array once its sorted.
 //	for(i = 0;i < numberOfElements;i++) 
